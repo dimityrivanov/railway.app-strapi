@@ -4,6 +4,18 @@ export default ({ env }) => ({
             jwtSecret: env('JWT_SECRET'),
         },
     },
+    email: {
+        config: {
+          provider: 'sendgrid',
+          providerOptions: {
+            apiKey: env('SENDGRID_API_KEY'),
+          },
+          settings: {
+            defaultFrom: 'support@bunique.app',
+            defaultReplyTo: 'support@bunique.app',
+          },
+        },
+      },
     upload: {
         config: {
             provider: 'cloudinary',
