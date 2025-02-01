@@ -4,7 +4,8 @@
   "info": {
     "singularName": "zone",
     "pluralName": "zones",
-    "displayName": "Zone"
+    "displayName": "Zone",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,9 +21,9 @@
     },
     "beach": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::beach.beach",
-      "inversedBy": "zone"
+      "inversedBy": "zones"
     },
     "rows": {
       "type": "integer"

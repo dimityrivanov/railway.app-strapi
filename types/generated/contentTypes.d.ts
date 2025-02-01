@@ -441,7 +441,7 @@ export interface ApiBeachBeach extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    zone: Schema.Attribute.Relation<'oneToOne', 'api::zone.zone'>;
+    zones: Schema.Attribute.Relation<'oneToMany', 'api::zone.zone'>;
   };
 }
 
@@ -587,6 +587,7 @@ export interface ApiSunbedSunbed extends Struct.CollectionTypeSchema {
 export interface ApiZoneZone extends Struct.CollectionTypeSchema {
   collectionName: 'zones';
   info: {
+    description: '';
     displayName: 'Zone';
     pluralName: 'zones';
     singularName: 'zone';
@@ -595,7 +596,7 @@ export interface ApiZoneZone extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    beach: Schema.Attribute.Relation<'oneToOne', 'api::beach.beach'>;
+    beach: Schema.Attribute.Relation<'manyToOne', 'api::beach.beach'>;
     columns: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
