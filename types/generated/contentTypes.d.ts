@@ -372,7 +372,8 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiBeachBeach extends Struct.CollectionTypeSchema {
   collectionName: 'beaches';
   info: {
-    displayName: 'Beach';
+    description: '';
+    displayName: 'Beaches';
     pluralName: 'beaches';
     singularName: 'beach';
   };
@@ -385,7 +386,7 @@ export interface ApiBeachBeach extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    BeachName: Schema.Attribute.String &
+    closing_time: Schema.Attribute.Time &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -394,9 +395,219 @@ export interface ApiBeachBeach extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::beach.beach'>;
+    location: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    opening_time: Schema.Attribute.Time &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
+    unique_id: Schema.Attribute.UID &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zone: Schema.Attribute.Relation<'oneToOne', 'api::zone.zone'>;
+  };
+}
+
+export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
+  collectionName: 'bookings';
+  info: {
+    displayName: 'Booking';
+    pluralName: 'bookings';
+    singularName: 'booking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isBooked: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::booking.booking'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiExtraExtra extends Struct.CollectionTypeSchema {
+  collectionName: 'extras';
+  info: {
+    displayName: 'Extra';
+    pluralName: 'extras';
+    singularName: 'extra';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::extra.extra'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    uid: Schema.Attribute.UID & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
+  collectionName: 'reservations';
+  info: {
+    description: '';
+    displayName: 'Reservation';
+    pluralName: 'reservations';
+    singularName: 'reservation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.DateTime;
+    end_time: Schema.Attribute.Time;
+    extras: Schema.Attribute.Relation<'oneToMany', 'api::extra.extra'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reservation.reservation'
+    > &
+      Schema.Attribute.Private;
+    payment_method: Schema.Attribute.Enumeration<
+      ['card', 'cash', 'paypal', 'stripe']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    start_time: Schema.Attribute.Time;
+    state: Schema.Attribute.Enumeration<
+      ['pending', 'paid', 'canceled', 'completed']
+    >;
+    sunbed: Schema.Attribute.Relation<'oneToOne', 'api::sunbed.sunbed'>;
+    transaction_id: Schema.Attribute.String;
+    uid: Schema.Attribute.UID & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiSunbedSunbed extends Struct.CollectionTypeSchema {
+  collectionName: 'sunbeds';
+  info: {
+    displayName: 'Sunbed';
+    pluralName: 'sunbeds';
+    singularName: 'sunbed';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    column: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enum: Schema.Attribute.Enumeration<['available', 'reserved', 'occupied']> &
+      Schema.Attribute.DefaultTo<'available'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sunbed.sunbed'
+    > &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    reservation: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::reservation.reservation'
+    >;
+    row: Schema.Attribute.Integer;
+    uid: Schema.Attribute.UID & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zone: Schema.Attribute.Relation<'oneToOne', 'api::zone.zone'>;
+  };
+}
+
+export interface ApiZoneZone extends Struct.CollectionTypeSchema {
+  collectionName: 'zones';
+  info: {
+    displayName: 'Zone';
+    pluralName: 'zones';
+    singularName: 'zone';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beach: Schema.Attribute.Relation<'oneToOne', 'api::beach.beach'>;
+    columns: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::zone.zone'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    rows: Schema.Attribute.Integer;
+    sunbed: Schema.Attribute.Relation<'oneToOne', 'api::sunbed.sunbed'>;
+    uid: Schema.Attribute.UID & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -885,6 +1096,10 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reservations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reservation.reservation'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -913,6 +1128,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::beach.beach': ApiBeachBeach;
+      'api::booking.booking': ApiBookingBooking;
+      'api::extra.extra': ApiExtraExtra;
+      'api::reservation.reservation': ApiReservationReservation;
+      'api::sunbed.sunbed': ApiSunbedSunbed;
+      'api::zone.zone': ApiZoneZone;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

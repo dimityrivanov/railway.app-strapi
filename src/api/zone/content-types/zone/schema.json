@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "zones",
+  "info": {
+    "singularName": "zone",
+    "pluralName": "zones",
+    "displayName": "Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "uid": {
+      "type": "uid",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "beach": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::beach.beach",
+      "inversedBy": "zone"
+    },
+    "rows": {
+      "type": "integer"
+    },
+    "columns": {
+      "type": "integer"
+    },
+    "sunbed": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sunbed.sunbed",
+      "mappedBy": "zone"
+    }
+  }
+}

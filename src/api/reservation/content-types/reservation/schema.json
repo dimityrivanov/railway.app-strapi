@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "uid": {
+      "type": "uid",
+      "required": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reservations"
+    },
+    "sunbed": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sunbed.sunbed",
+      "inversedBy": "reservation"
+    },
+    "extras": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::extra.extra"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "paid",
+        "canceled",
+        "completed"
+      ]
+    },
+    "payment_method": {
+      "type": "enumeration",
+      "enum": [
+        "card",
+        "cash",
+        "paypal",
+        "stripe"
+      ]
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "time"
+    },
+    "end_time": {
+      "type": "time"
+    }
+  }
+}

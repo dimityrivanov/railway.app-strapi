@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sunbeds",
+  "info": {
+    "singularName": "sunbed",
+    "pluralName": "sunbeds",
+    "displayName": "Sunbed"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "uid": {
+      "type": "uid",
+      "required": true
+    },
+    "zone": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::zone.zone",
+      "inversedBy": "sunbed"
+    },
+    "row": {
+      "type": "integer"
+    },
+    "column": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "enum": {
+      "type": "enumeration",
+      "enum": [
+        "available",
+        "reserved",
+        "occupied"
+      ],
+      "default": "available"
+    },
+    "reservation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::reservation.reservation",
+      "mappedBy": "sunbed"
+    }
+  }
+}

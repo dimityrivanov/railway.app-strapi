@@ -4,7 +4,8 @@
   "info": {
     "singularName": "beach",
     "pluralName": "beaches",
-    "displayName": "Beach"
+    "displayName": "Beaches",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,13 +16,76 @@
     }
   },
   "attributes": {
-    "BeachName": {
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "string"
+    },
+    "unique_id": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "uid",
+      "required": true
+    },
+    "location": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json"
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "zone": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::zone.zone",
+      "mappedBy": "beach"
+    },
+    "opening_time": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "time"
+    },
+    "closing_time": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "time"
     }
   }
 }
