@@ -4,7 +4,8 @@
   "info": {
     "singularName": "sunbed",
     "pluralName": "sunbeds",
-    "displayName": "Sunbed"
+    "displayName": "Sunbed",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,9 +18,9 @@
     },
     "zone": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::zone.zone",
-      "inversedBy": "sunbed"
+      "inversedBy": "sunbeds"
     },
     "row": {
       "type": "integer"

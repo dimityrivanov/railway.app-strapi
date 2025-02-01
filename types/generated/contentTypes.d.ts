@@ -549,6 +549,7 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
 export interface ApiSunbedSunbed extends Struct.CollectionTypeSchema {
   collectionName: 'sunbeds';
   info: {
+    description: '';
     displayName: 'Sunbed';
     pluralName: 'sunbeds';
     singularName: 'sunbed';
@@ -580,7 +581,7 @@ export interface ApiSunbedSunbed extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    zone: Schema.Attribute.Relation<'oneToOne', 'api::zone.zone'>;
+    zone: Schema.Attribute.Relation<'manyToOne', 'api::zone.zone'>;
   };
 }
 
@@ -607,7 +608,7 @@ export interface ApiZoneZone extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     rows: Schema.Attribute.Integer;
-    sunbed: Schema.Attribute.Relation<'oneToOne', 'api::sunbed.sunbed'>;
+    sunbeds: Schema.Attribute.Relation<'oneToMany', 'api::sunbed.sunbed'>;
     uid: Schema.Attribute.UID & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
