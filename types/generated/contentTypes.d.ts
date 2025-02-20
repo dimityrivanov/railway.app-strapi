@@ -473,6 +473,39 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCompanyCompany extends Struct.CollectionTypeSchema {
+  collectionName: 'companies';
+  info: {
+    description: '';
+    displayName: 'Company';
+    pluralName: 'companies';
+    singularName: 'company';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    companyClass: Schema.Attribute.JSON;
+    companyName: Schema.Attribute.String;
+    companyNameClass: Schema.Attribute.String;
+    companyObject: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::company.company'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    uid: Schema.Attribute.UID;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiExtraExtra extends Struct.CollectionTypeSchema {
   collectionName: 'extras';
   info: {
@@ -513,6 +546,7 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    beaches: Schema.Attribute.Relation<'oneToOne', 'api::beach.beach'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1131,6 +1165,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::beach.beach': ApiBeachBeach;
       'api::booking.booking': ApiBookingBooking;
+      'api::company.company': ApiCompanyCompany;
       'api::extra.extra': ApiExtraExtra;
       'api::reservation.reservation': ApiReservationReservation;
       'api::sunbed.sunbed': ApiSunbedSunbed;
